@@ -12,8 +12,7 @@ export const getDeadlineRemainingTime = (deadline: Date) => {
 };
 
 export const getDeadlineColor = (daysRemaining: number) => {
-  if (daysRemaining <= 1) return "red";
-  if (daysRemaining <= 7) return "orange";
-  if (daysRemaining <= 14) return "yellow";
+  if (daysRemaining <= 5) return "red";
+  if (daysRemaining <= 14) return "orange";
   return "green";
 };

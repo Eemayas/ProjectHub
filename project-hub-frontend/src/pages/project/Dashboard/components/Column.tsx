@@ -1,28 +1,23 @@
-import React, { useState } from "react";
-import {
-  DragDropContext,
-  Draggable,
-  Droppable,
-  DropResult,
-} from "react-beautiful-dnd";
-
-import { Todo, TypedColumn } from "./Board";
-import { BiPlusCircle } from "react-icons/bi";
+import { Draggable, Droppable } from "react-beautiful-dnd";
 import TodoCard from "./TodoCard";
+import { Button } from "@/components/ui/button";
+import { MdAdd } from "react-icons/md";
+import { TTodo, TTypedColumn } from "../types";
 
 type Props = {
-  id: TypedColumn;
-  todos: Todo[];
+  id: TTypedColumn;
+  todos: TTodo[];
   index: number;
 };
 
 const idToColumnText: {
-  [key in TypedColumn]: string;
+  [key in TTypedColumn]: string;
 } = {
   todo: "To Dos",
   inprogress: "In Progress",
   done: "Done",
 };
+
 //https://youtu.be/7DVdVGm7Ht8?si=9WsX25J8STDs8KuR&t=11928
 const Column = ({ id, todos, index }: Props) => {
   // const [searchString, setNewTaskType] = useBoardStore((state) => [
@@ -35,7 +30,30 @@ const Column = ({ id, todos, index }: Props) => {
   //   openModal();
   // };
   const searchString = undefined;
-
+  const getBgColorClass = (text: string) => {
+    switch (text) {
+      case "To Dos":
+        return "bg-indigo-600";
+      case "In Progress":
+        return "bg-[#FFA500]";
+      case "Done":
+        return "bg-green-600";
+      default:
+        return "";
+    }
+  };
+  const getTextColorClass = (text: string) => {
+    switch (text) {
+      case "To Dos":
+        return "text-indigo-600";
+      case "In Progress":
+        return "text-[#FFA500]";
+      case "Done":
+        return "text-green-600";
+      default:
+        return "";
+    }
+  };
   return (
     <Draggable draggableId={id} index={index}>
       {(provided) => (
@@ -49,20 +67,45 @@ const Column = ({ id, todos, index }: Props) => {
               <div
                 {...provided.droppableProps}
                 ref={provided.innerRef}
-                className={`p-2 rounded-2xl shadow-sm ${
-                  snapshot.isDraggingOver ? "bg-green-200" : "bg-white/50"
+                className={`p-2 rounded-2xl shadow-sm px-5 pt-5 dark:border-gray-300 border-gray-700 border ${
+                  snapshot.isDraggingOver ? "bg-green-200" : "bg-column"
                 }`}
               >
-                <h2 className="flex justify-between font-normal text-xl">
-                  {idToColumnText[id]}
-                  <span className="text-gray-500 bg-gray-200 rounded-full p-2">
-                    {!searchString
-                      ? todos.length
-                      : todos.filter((todo) =>
-                          todo.title.toLowerCase().includes(searchString)
-                        ).length}
-                  </span>
-                </h2>
+                <div className="flex gap-5 justify-between items-center  w-full font-medium mb-3">
+                  <div className="flex gap-2 ">
+                    <div
+                      className={`my-auto w-2 h-2 ${getBgColorClass(
+                        idToColumnText[id]
+                      )} rounded-full`}
+                    />
+                    <div className="my-auto text-base">
+                      {idToColumnText[id]}
+                    </div>
+                    <div className="justify-center items-center flex w-5 h-5 text-xs whitespace-nowrap rounded-xl bg-neutral-200 text-zinc-500">
+                      {!searchString
+                        ? todos.length
+                        : todos.filter((todo) =>
+                            todo.title.toLowerCase().includes(searchString)
+                          ).length}
+                    </div>
+                  </div>
+                  <Button
+                    className={`${getBgColorClass(
+                      idToColumnText[id]
+                    )}  bg-opacity-5 p-2 rounded-full  `}
+                  >
+                    <MdAdd
+                      className={`${getTextColorClass(
+                        idToColumnText[id]
+                      )} size-5 font-bold`}
+                    />
+                  </Button>
+                </div>
+                <div
+                  className={`w-full h-1 rounded-full mb-3 ${getBgColorClass(
+                    idToColumnText[id]
+                  )} `}
+                ></div>
 
                 <div className="space-y-2 ">
                   {todos.map((todo, index) => {
@@ -86,20 +129,13 @@ const Column = ({ id, todos, index }: Props) => {
                             draggableProps={provided.draggableProps}
                             dragHandleProps={provided.dragHandleProps}
                             innerRef={provided.innerRef}
+                            bgColor={getBgColorClass(idToColumnText[id])}
                           ></TodoCard>
                         )}
                       </Draggable>
                     );
                   })}
                   {provided.placeholder}
-                  <div className="flex items-end justify-end">
-                    <button
-                      // onClick={handleAddTodo}
-                      className="text-green-500 hover:text-green-600"
-                    >
-                      <BiPlusCircle className="h-10 w-10 " />
-                    </button>
-                  </div>
                 </div>
               </div>
             )}
@@ -111,110 +147,3 @@ const Column = ({ id, todos, index }: Props) => {
 };
 
 export default Column;
-
-export const List = ({ id, todos, index }: Props) => {
-  // const items = props.items;
-
-  return (
-    <Droppable
-      droppableId="droppable"
-      renderClone={(provided, snapshot, rubric) => (
-        <div
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
-        >
-          Item id:
-        </div>
-      )}
-    >
-      {(provided) => (
-        <div ref={provided.innerRef} {...provided.droppableProps}>
-          {todos.map((item) => (
-            <Draggable draggableId={id} index={index}>
-              {(provided, snapshot) => (
-                <div
-                  {...provided.draggableProps}
-                  {...provided.dragHandleProps}
-                  ref={provided.innerRef}
-                >
-                  Item id:
-                </div>
-              )}
-            </Draggable>
-          ))}
-        </div>
-      )}
-    </Droppable>
-  );
-};
-// App.tsx
-
-type Item = {
-  id: string;
-  content: string;
-};
-
-const initialItems: Item[] = [
-  { id: "item-1", content: "Item 1" },
-  { id: "item-2", content: "Item 2" },
-  { id: "item-3", content: "Item 3" },
-  { id: "item-4", content: "Item 4" },
-];
-
-export const Game: React.FC = () => {
-  const [items, setItems] = useState<Item[]>(initialItems);
-
-  const onDragEnd = (result: DropResult) => {
-    if (!result.destination) {
-      return;
-    }
-
-    const newItems = Array.from(items);
-    const [reorderedItem] = newItems.splice(result.source.index, 1);
-    newItems.splice(result.destination.index, 0, reorderedItem);
-
-    setItems(newItems);
-  };
-
-  return (
-    <div
-      style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}
-    >
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="droppable">
-          {(provided) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              style={{ border: "1px solid lightgray", padding: 10, width: 200 }}
-            >
-              {items.map((item, index) => (
-                <Draggable key={item.id} draggableId={item.id} index={index}>
-                  {(provided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={{
-                        userSelect: "none",
-                        padding: 16,
-                        margin: "0 0 8px 0",
-                        minHeight: "50px",
-                        backgroundColor: "white",
-                        ...provided.draggableProps.style,
-                      }}
-                    >
-                      {item.content}
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </div>
-  );
-};

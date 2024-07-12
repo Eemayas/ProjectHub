@@ -1,71 +1,10 @@
 import { useState } from "react";
-import {
-  DragDropContext,
-  DropResult,
-  Droppable,
-} from "react-beautiful-dnd";
+import { DragDropContext, DropResult, Droppable } from "react-beautiful-dnd";
 import Column from "./Column";
-
-export interface Board {
-  columns: Map<TypedColumn, Column>;
-}
-
-export type TypedColumn = "todo" | "inprogress" | "done";
-
-export interface Column {
-  id: TypedColumn;
-  todos: Todo[];
-}
-
-export interface Todo {
-  $id: string;
-  $createdAt: string;
-  title: string;
-  status: TypedColumn;
-  image?: Image;
-}
-
-export interface Image {
-  buckedId: string;
-  fileId: string;
-}
+import { board1, TBoard, TTodo, TTypedColumn } from "../types";
 
 const Board = () => {
-  const board1: Board = {
-    columns: new Map([
-      [
-        "todo",
-        {
-          id: "todo",
-          todos: [
-            {
-              $id: "653b4d23c467f099328a",
-              $createdAt: "2023-10-27T05:39:47.805+00:00",
-              title: "Take the Dog out for the walk",
-              status: "todo",
-            },
-          ],
-        },
-      ],
-      [
-        "inprogress",
-        {
-          id: "inprogress",
-          todos: [
-            {
-              $id: "653bd2c0060a7af82657",
-              $createdAt: "2023-10-27T15:09:52.025+00:00",
-              title: "Do your HW",
-              status: "inprogress",
-            },
-          ],
-        },
-      ],
-      ["done", { id: "done", todos: [] }],
-    ]),
-  };
-
-  const [board, setBoardState] = useState<Board>(board1);
+  const [board, setBoardState] = useState<TBoard>(board1);
 
   const handleOnDragEnd = (result: DropResult) => {
     const { destination, source, type } = result;
@@ -135,7 +74,8 @@ const Board = () => {
   };
 
   // Assume updateTodoInDB is defined somewhere else in your code
-  const updateTodoInDB = (todo: Todo, newStatus: TypedColumn) => {
+  const updateTodoInDB = (todo: TTodo, newStatus: TTypedColumn) => {
+    console.log({ todo, newStatus });
     // Update the todo status in the database
   };
   return (
@@ -146,12 +86,11 @@ const Board = () => {
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
-              className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-7xl mx-auto"
+              className="grid grid-cols-1 lg:grid-cols-3 gap-5  mx-auto w-full"
             >
               {Array.from(board.columns.entries()).map(
                 ([id, column], index) => (
                   <Column key={id} id={id} todos={column.todos} index={index} />
-                  // <List key={id} id={id} todos={column.todos} index={index} />
                 )
               )}
             </div>

@@ -31,7 +31,7 @@ const DashboardCards: React.FC<TProject> = ({
   const navigate = useNavigate();
   return (
     <div
-      className="relative flex flex-col mt-6 p-6 gap-3 text-gray-700 dark:text-gray-300 dark:border-gray-300 border-gray-700  border shadow-card-light dark:shadow-card-dark rounded-2xl sm:w-96 w-full"
+      className="relative flex flex-col mt-6 p-6 gap-3 text-gray-700 dark:text-gray-300 dark:border-gray-300 border-gray-700 border shadow-card-light dark:shadow-card-dark rounded-2xl sm:w-96 w-full"
       onClick={() => navigate(`/project/${projectID}`)}
     >
       <>
@@ -57,7 +57,7 @@ const DashboardCards: React.FC<TProject> = ({
           <p className="line-clamp-3">{projectDescription}</p>
         </div>
 
-        <CircularProgressBar value={progress} />
+        <CircularProgressBar percentage={progress} />
       </>
       <div className="pt-2 border-t-[1px] dark:border-gray-300 border-gray-700 flex items-center justify-between">
         <div className="flex -space-x-4 rtl:space-x-reverse">

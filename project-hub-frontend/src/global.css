@@ -1,6 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: "Inter";
+}
 
 @layer base {
   :root {
@@ -24,10 +29,11 @@
     --input: 240 5.9% 90%;
     --ring: 142.1 76.2% 36.3%;
     --radius: 1rem;
+    --column: rgb(245, 245, 245);
   }
 
   .dark {
-    --background: rgb(249 250 251);
+    --background: hsl(220.9, 39.3%, 11%);
     --foreground: 0 0% 95%;
     --card: 24 9.8% 10%;
     --card-foreground: 0 0% 95%;
@@ -46,5 +52,6 @@
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 142.4 71.8% 29.2%;
+    --column: rgb(19, 28, 49);
   }
 }
