@@ -1,6 +1,6 @@
 import Dashboard from "@/pages/Dashboard";
-import LogIn from "@/pages/LogIn/LogIn";
-import SignUp from "@/pages/LogIn/Signup";
+import LogIn from "@/pages/auth/LogIn";
+import SignUp from "@/pages/auth/Signup";
 import ProjectDashboard from "@/pages/project/Dashboard";
 import ProjectMemberList from "@/pages/project/MemberList/ProjectMemberList";
 import { useRoutes } from "react-router-dom";

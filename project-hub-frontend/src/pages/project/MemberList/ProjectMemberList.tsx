@@ -31,8 +31,7 @@ const ProjectMemberList = () => {
   );
 };
 import React from "react";
-import CircularProgressBar, {
-  CircularProgressBarOutsideText,
+import  {CircularProgressBar,
 } from "@/components/CircularProgressBar";
 
 interface Customer {

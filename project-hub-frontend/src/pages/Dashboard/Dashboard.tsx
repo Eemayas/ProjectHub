@@ -1,8 +1,21 @@
 import DashboardLayouts from "@/layouts/DashboardLayouts/DashboardLayouts";
 import DashboardCards from "./components/DashboardCards";
 import { TProject } from "./types";
+import { useEffect, useState } from "react";
 
 const Dashboard: React.FC = () => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    console.log("Fetching Data");
+    fetch("http://localhost:8000/api/data")
+      .then((response) => {
+        console.log(response);
+        return response.json();
+      })
+      .then((data) => setData(data));
+    console.log(data);
+  }, []);
   const dashboardCardInfo: TProject[] = [
     {
       projectID: "dffdfbdfb",

@@ -3,10 +3,15 @@ import React, { useState } from "react";
 interface AccordionProps {
   title: string;
   children: React.ReactNode;
+  isOpenProps?: boolean;
 }
 
-const Accordion: React.FC<AccordionProps> = ({ title, children }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const Accordion: React.FC<AccordionProps> = ({
+  title,
+  children,
+  isOpenProps = false,
+}) => {
+  const [isOpen, setIsOpen] = useState(isOpenProps);
 
   const toggleAccordion = () => {
     setIsOpen(!isOpen);

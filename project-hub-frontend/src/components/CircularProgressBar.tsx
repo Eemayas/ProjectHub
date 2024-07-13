@@ -7,7 +7,7 @@ interface CircularProgressBarProps {
   color?: string;
 }
 
-const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
+export const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
   size = 100,
   strokeWidth = 10,
   percentage,
@@ -61,6 +61,7 @@ const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
     </svg>
   );
 };
+
 export const CircularProgressBarOutsideText: React.FC<
   CircularProgressBarProps
 > = ({ size = 100, strokeWidth = 10, percentage = 50, color = "green" }) => {
@@ -110,70 +111,38 @@ export const CircularProgressBarOutsideText: React.FC<
   );
 };
 
-export default CircularProgressBar;
+interface LinearProgressBarProps {
+  value: number;
+  color?: string;
+  width?: number;
+  trackColor?: string;
+}
 
-// import React from "react";
-// import PropTypes from "prop-types";
-
-// const CircularProgressBar = ({ size, strokeWidth, percentage, color }) => {
-//   const radius = (size - strokeWidth) / 2;
-//   const circumference = 2 * Math.PI * radius;
-//   const offset = circumference - (percentage / 100) * circumference;
-
-//   return (
-//     <svg
-//       width={size}
-//       height={size}
-//       viewBox={`0 0 ${size} ${size}`}
-//       className="relative"
-//     >
-//       <circle
-//         className="text-gray-200"
-//         strokeWidth={strokeWidth}
-//         stroke="currentColor"
-//         fill="transparent"
-//         r={radius}
-//         cx={size / 2}
-//         cy={size / 2}
-//       />
-//       <circle
-//         className="text-blue-500"
-//         strokeWidth={strokeWidth}
-//         stroke={color}
-//         fill="transparent"
-//         r={radius}
-//         cx={size / 2}
-//         cy={size / 2}
-//         strokeDasharray={circumference}
-//         strokeDashoffset={offset}
-//         strokeLinecap="round"
-//       />
-//       <text
-//         x="50%"
-//         y="50%"
-//         dy=".3em"
-//         textAnchor="middle"
-//         className="text-xl font-semibold"
-//         fill={color}
-//       >
-//         {`${percentage}%`}
-//       </text>
-//     </svg>
-//   );
-// };
-
-// CircularProgressBar.propTypes = {
-//   size: PropTypes.number.isRequired,
-//   strokeWidth: PropTypes.number.isRequired,
-//   percentage: PropTypes.number.isRequired,
-//   color: PropTypes.string.isRequired,
-// };
-
-// CircularProgressBar.defaultProps = {
-//   size: 100,
-//   strokeWidth: 10,
-//   percentage: 50,
-//   color: "blue",
-// };
-
-// export default CircularProgressBar;
+export const LinearProgressBar: React.FC<LinearProgressBarProps> = ({
+  value,
+  color = "#4F46E5",
+  width = 8,
+  trackColor = "#E5E7EB",
+}) => {
+  return (
+    <>
+      <div className="flex justify-between">
+        <span className="text-base font-medium">Progress</span>
+        <span className="text-sm font-medium">{value}%</span>
+      </div>
+      <div
+        className="w-full rounded-full"
+        style={{ backgroundColor: trackColor, height: `${width}px` }}
+      >
+        <div
+          className="rounded-full"
+          style={{
+            backgroundColor: color,
+            height: `${width}px`,
+            width: `${value}%`,
+          }}
+        ></div>
+      </div>
+    </>
+  );
+};

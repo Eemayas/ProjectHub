@@ -1,4 +1,4 @@
-import CircularProgressBar from "@/components/CircularProgressBar";
+import { LinearProgressBar } from "@/components/CircularProgressBar";
 import React from "react";
 import { TProject } from "../types";
 import { useNavigate } from "react-router-dom";
@@ -56,9 +56,9 @@ const DashboardCards: React.FC<TProject> = ({
         <div className="block text-base antialiased font-light leading-relaxed text-inherit h-[4.7rem] overflow-hidden">
           <p className="line-clamp-3">{projectDescription}</p>
         </div>
-
-        <CircularProgressBar percentage={progress} />
       </>
+      <div className="mt-2 border-t-[1px] dark:border-gray-300 border-gray-700 " />
+      <LinearProgressBar value={progress} />
       <div className="pt-2 border-t-[1px] dark:border-gray-300 border-gray-700 flex items-center justify-between">
         <div className="flex -space-x-4 rtl:space-x-reverse">
           {memberList.slice(0, 4).map((member, index) => (

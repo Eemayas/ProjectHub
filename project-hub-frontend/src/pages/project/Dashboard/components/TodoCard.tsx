@@ -9,13 +9,13 @@ import { SlOptions } from "react-icons/sl";
 import MemberAvatarGroup from "@/components/MemberAvatrGroup";
 import { CircularProgressBarOutsideText } from "@/components/CircularProgressBar";
 import ResourcesAccordion from "./ResourcesAccordion";
-import { TMemberList, TResourcesList, TTodo, TTypedColumn } from "../types";
+import { TTodo, TTypedColumn } from "../types";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
-import { Moon, Sun } from "lucide-react";
+import SubTaskAccordion from "./SubTaskAccordion";
 
 type Props = {
   todo: TTodo;
@@ -117,6 +117,8 @@ const TodoCard = ({
             />
           </div>
         )}
+        <div className={`w-full h-1 rounded-full my-4 ${bgColor}`} />
+        <SubTaskAccordion subTaskList={todo.subTaskList || []} />
         <div className={`w-full h-1 rounded-full my-4 ${bgColor}`} />
         <ResourcesAccordion resourceList={todo.resourceList} />
         <div className={`w-full h-1 rounded-full my-4 ${bgColor}`} />

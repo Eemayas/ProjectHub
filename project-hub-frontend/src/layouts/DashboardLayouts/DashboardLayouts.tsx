@@ -31,6 +31,28 @@ const DashboardLayouts = ({
   }, []);
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+  const sidebarContent = [
+    {
+      text: "Dashboard",
+      icon: <MdOutlineSpaceDashboard className="h-5 w-5" />,
+      link: "/project/dffdfbdfb",
+    },
+    {
+      text: "Task",
+      icon: <FaTasks className="h-5 w-5" />,
+      link: "/project/dffdfbdfb",
+    },
+    {
+      text: "Message",
+      icon: <MdOutlineMessage className="h-5 w-5" />,
+      link: "/project/dffdfbdfb",
+    },
+    {
+      text: "Members",
+      icon: <IoIosPeople className="h-5 w-5" />,
+      link: "/project/dffdfbdfb/members",
+    },
+  ];
 
   return (
     <div>
@@ -78,26 +100,14 @@ const DashboardLayouts = ({
         >
           <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
             <ul className="space-y-2 font-medium">
-              <SidebarItem
-                href="#"
-                icon={<MdOutlineSpaceDashboard className="h-5 w-5" />}
-                text="Dashboard"
-              />
-              <SidebarItem
-                href="#"
-                icon={<FaTasks className="h-5 w-5" />}
-                text="Task"
-              />
-              <SidebarItem
-                href="#"
-                icon={<MdOutlineMessage className="h-5 w-5" />}
-                text="Messages"
-              />
-              <SidebarItem
-                href="#"
-                icon={<IoIosPeople className="h-5 w-5" />}
-                text="Members"
-              />
+              {sidebarContent.map((item, index) => (
+                <SidebarItem
+                  key={`Sidebar Content-${index}`}
+                  href={item.link}
+                  icon={item.icon}
+                  text={item.text}
+                />
+              ))}
             </ul>
           </div>
         </aside>

@@ -4,6 +4,10 @@ export interface TImage {
   buckedId: string;
   fileId: string;
 }
+export interface TSubTaskList {
+  subTaskTitle: string;
+  status: boolean;
+}
 
 export interface TTodo {
   $id: string;
@@ -15,6 +19,7 @@ export interface TTodo {
   progressPrecentage: number;
   resourceList: TResourcesList[];
   memberList: TMemberList[];
+  subTaskList?: TSubTaskList[];
 }
 export interface TColumn {
   id: TTypedColumn;
@@ -66,6 +71,16 @@ export const board2: TBoard = {
                 profileImg: "https://example.com/john-doe.jpg",
               },
             ],
+            subTaskList: [
+              {
+                subTaskTitle: "Put on the leash",
+                status: true,
+              },
+              {
+                subTaskTitle: "Walk around the park",
+                status: false,
+              },
+            ],
           },
         ],
       },
@@ -104,6 +119,16 @@ export const board2: TBoard = {
                 profileImg: "https://example.com/jane-smith.jpg",
               },
             ],
+            subTaskList: [
+              {
+                subTaskTitle: "Put on the leash",
+                status: true,
+              },
+              {
+                subTaskTitle: "Walk around the park",
+                status: false,
+              },
+            ],
           },
         ],
       },
@@ -136,6 +161,16 @@ export const board2: TBoard = {
               {
                 name: "Emily Johnson",
                 profileImg: "https://example.com/emily-johnson.jpg",
+              },
+            ],
+            subTaskList: [
+              {
+                subTaskTitle: "Put on the leash",
+                status: true,
+              },
+              {
+                subTaskTitle: "Walk around the park",
+                status: false,
               },
             ],
           },
@@ -202,6 +237,16 @@ export const board1: TBoard = {
                 profileImg: "https://github.com/username17.png",
               },
             ],
+            subTaskList: [
+              {
+                subTaskTitle: "Install VS Code",
+                status: true,
+              },
+              {
+                subTaskTitle: "Install Node.js",
+                status: false,
+              },
+            ],
           },
         ],
       },
@@ -245,6 +290,16 @@ export const board1: TBoard = {
               {
                 name: "Member 15",
                 profileImg: "https://github.com/username15.png",
+              },
+            ],
+            subTaskList: [
+              {
+                subTaskTitle: "Install VS Code",
+                status: true,
+              },
+              {
+                subTaskTitle: "Install Node.js",
+                status: false,
               },
             ],
           },
@@ -324,6 +379,16 @@ export const board1: TBoard = {
               {
                 name: "Member 17",
                 profileImg: "https://github.com/username17.png",
+              },
+            ],
+            subTaskList: [
+              {
+                subTaskTitle: "Install VS Code",
+                status: true,
+              },
+              {
+                subTaskTitle: "Install Node.js",
+                status: false,
               },
             ],
           },
